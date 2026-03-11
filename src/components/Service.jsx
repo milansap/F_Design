@@ -137,8 +137,8 @@ const Service = () => {
         <p className="text-center text-sm text-gray-400 tracking-wide mb-10">
           Our Partners
         </p>
-        <div className="flex items-center justify-center gap-14 flex-wrap">
-          <div className="flex flex-col items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+        <div className="flex items-center justify-evenly gap-14 flex-wrap">
+          <div className="flex flex-col  items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
             <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-xl">
               <FaCloud />
             </div>
