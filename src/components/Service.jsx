@@ -106,20 +106,29 @@ const Service = () => {
     );
   }
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 antialiased">
+    <div className="min-h-screen bg-white font-sans text-[#262626] antialiased">
       <section className="max-w-4xl mx-auto px-10 pt-24 pb-20 grid grid-cols-2 gap-20 items-center">
         <div>
-          <p className="text-gray-600 text-[1.05rem] leading-relaxed mb-8">
+          <p className=" text-[1.05rem] leading-relaxed mb-8">
             Experience our expert solutions tailored to enhance your business
             with top-tier design, development, and animation.
           </p>
-          <button className="bg-sky-500 hover:bg-sky-600 active:scale-95 text-white text-sm font-semibold px-6 py-2 rounded-full transition-all duration-150 shadow-sm">
+          <button className="bg-sky-500 hover:bg-sky-600 cursor-pointer active:scale-95 text-white text-sm font-semibold px-6 py-2 rounded-full transition-all duration-150 shadow-sm">
             Services
           </button>
         </div>
 
         <div>
-          <h1 className="text-4xl font-extrabold leading-snug tracking-tight">
+          <h1
+            className="text-4xl font-extrabold leading-snug tracking-tight"
+            style={{
+              fontFamily: '"Oakes Grotesk", sans-serif',
+              fontWeight: 700,
+              fontSize: "52px",
+              lineHeight: "150%",
+              letterSpacing: "-0.01em",
+            }}
+          >
             UI &amp; UX
             <br />
             Development
