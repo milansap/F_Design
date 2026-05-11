@@ -1,4 +1,71 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const SERVICES = ["UI & UX", "Development", "Blockchain"];
+
+function AnimatedServiceTitle() {
+  const [step, setStep] = useState(0);
+  const [flipCount, setFlipCount] = useState([0, 0, 0]);
+
+  useEffect(() => {
+    let current = 0;
+    const interval = setInterval(() => {
+      const rowToFlip = current % 3;
+      setFlipCount((prev) => {
+        const next = [...prev];
+        next[rowToFlip] = next[rowToFlip] + 1;
+        return next;
+      });
+      setStep((s) => s + 1);
+      current += 1;
+    }, 900);
+    return () => clearInterval(interval);
+  }, []);
+
+  const variants = {
+    enter: { y: -26, opacity: 0 },
+    center: { y: 0, opacity: 1 },
+    exit: { y: 26, opacity: 0 },
+  };
+
+  return (
+    <h1
+      className="font-extrabold tracking-tight"
+      style={{
+        fontFamily: '"Oakes Grotesk", sans-serif',
+        fontWeight: 700,
+        fontSize: "clamp(22px, 6vw, 35px)",
+        lineHeight: "170%",
+        letterSpacing: "-0.01em",
+      }}
+    >
+      {[0, 1, 2].map((row) => {
+        const serviceIndex = (row + step) % SERVICES.length;
+        return (
+          <span
+            key={row}
+            className="block overflow-hidden"
+            style={{ height: "1.7em" }}
+          >
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={flipCount[row]}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.5, ease: [0.5, 1, 1.5, 2] }}
+                className="block"
+              >
+                {SERVICES[serviceIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </span>
+        );
+      })}
+    </h1>
+  );
+}
 
 const Service = () => {
   const PARTNERS = [
@@ -18,9 +85,7 @@ const Service = () => {
   function DraggableSlider() {
     const trackRef = useRef(null);
     const wrapperRef = useRef(null);
-
     const dragState = useRef({ isDragging: false, startX: 0, scrollLeft: 0 });
-
     const [progress, setProgress] = useState(0);
     const [interaction, setInteraction] = useState({
       hovering: false,
@@ -40,9 +105,7 @@ const Service = () => {
     const onMouseMove = (e) => {
       const rect = wrapperRef.current.getBoundingClientRect();
       const cursorPos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-
       setInteraction((prev) => (prev.hovering ? { ...prev, cursorPos } : prev));
-
       if (!dragState.current.isDragging) return;
       e.preventDefault();
       const x = e.pageX - trackRef.current.offsetLeft;
@@ -163,22 +226,7 @@ const Service = () => {
           </p>
 
           <div className="flex items-start sm:items-center justify-start sm:justify-center gap-3.5 px-0 sm:px-6">
-            <h1
-              className="font-extrabold leading-snug tracking-tight"
-              style={{
-                fontFamily: '"Oakes Grotesk", sans-serif',
-                fontWeight: 700,
-                fontSize: "clamp(22px, 6vw, 35px)",
-                lineHeight: "170%",
-                letterSpacing: "-0.01em",
-              }}
-            >
-              UI &amp; UX
-              <br />
-              Development
-              <br />
-              Blockchain
-            </h1>
+            <AnimatedServiceTitle />
           </div>
         </div>
 
